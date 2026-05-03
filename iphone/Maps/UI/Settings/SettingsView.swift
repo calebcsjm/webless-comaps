@@ -81,28 +81,6 @@ struct SettingsView: View {
         NavigationView {
             List {
                 Section {
-                    NavigationLink {
-                        ProfileView()
-                    } label: {
-                        HStack {
-                            Image(systemName: "person.fill")
-                            
-                            Text("osm_profile")
-                                .lineLimit(1)
-                                .layoutPriority(2)
-                            
-                            Spacer(minLength: 0)
-                                .layoutPriority(0)
-                            
-                            Text(Profile.name ?? String())
-                                .lineLimit(1)
-                                .foregroundStyle(.secondary)
-                                .layoutPriority(1)
-                        }
-                    }
-                }
-                
-                Section {
                     Toggle("autodownload", isOn: $hasAutomaticDownload)
                         .tint(.accent)
                     

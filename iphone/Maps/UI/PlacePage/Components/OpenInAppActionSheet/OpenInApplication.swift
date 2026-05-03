@@ -1,5 +1,4 @@
 enum OpenInApplication: Int, CaseIterable {
-  case osm
   case googleMaps
   case appleMaps
   case osmAnd
@@ -14,15 +13,11 @@ enum OpenInApplication: Int, CaseIterable {
 
 extension OpenInApplication {
   static var availableApps: [OpenInApplication] {
-    // OSM should always be first in the list.
-    let sortedApps: [OpenInApplication] = [.osm] + allCases.filter { $0 != .osm }.sorted(by: { $0.name < $1.name })
-    return sortedApps.filter { UIApplication.shared.canOpenURL(URL(string: $0.scheme)!) }
+    return allCases.sorted(by: { $0.name < $1.name }).filter { UIApplication.shared.canOpenURL(URL(string: $0.scheme)!) }
   }
 
   var name: String {
     switch self {
-    case .osm:
-      return "OpenStreetMap"
     case .googleMaps:
       return "Google Maps"
     case .appleMaps:
@@ -49,8 +44,6 @@ extension OpenInApplication {
   // Schemes should be registered in LSApplicationQueriesSchemes - see Info.plist.
   var scheme: String {
     switch self {
-    case .osm:
-      return "https://osm.org/go/"
     case .googleMaps:
       return "comgooglemaps://"
     case .appleMaps:
@@ -78,8 +71,6 @@ extension OpenInApplication {
     let latitude = String(format: "%.6f", coordinates.latitude)
     let longitude = String(format: "%.6f", coordinates.longitude)
     switch self {
-    case .osm:
-      return GeoUtil.formattedOsmLink(for: coordinates, zoomLevel: Int32(zoomLevel))
     case .googleMaps:
       return "\(scheme)?&q=\(latitude),\(longitude)&z=\(zoomLevel)"
     case .appleMaps:

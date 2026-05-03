@@ -110,54 +110,6 @@ extension PlacePageInteractor: PlacePageInfoViewControllerDelegate {
     MWMPlacePageManagerHelper.call(phone)
   }
 
-  func didPressWebsite() {
-    MWMPlacePageManagerHelper.openWebsite(placePageData)
-  }
-
-  func didPressWebsiteMenu() {
-    MWMPlacePageManagerHelper.openWebsiteMenu(placePageData)
-  }
-
-  func didPressWikipedia() {
-    MWMPlacePageManagerHelper.openWikipedia(placePageData)
-  }
-  
-  func didPressWikimediaCommons() {
-    MWMPlacePageManagerHelper.openWikimediaCommons(placePageData)
-  }
-  
-  func didPressFediverse() {
-    MWMPlacePageManagerHelper.openFediverse(placePageData)
-  }
-  
-  func didPressFacebook() {
-    MWMPlacePageManagerHelper.openFacebook(placePageData)
-  }
-  
-  func didPressInstagram() {
-    MWMPlacePageManagerHelper.openInstagram(placePageData)
-  }
-
-  func didPressTwitter() {
-    MWMPlacePageManagerHelper.openTwitter(placePageData)
-  }
-  
-  func didPressVk() {
-    MWMPlacePageManagerHelper.openVk(placePageData)
-  }
-  
-  func didPressLine() {
-    MWMPlacePageManagerHelper.openLine(placePageData)
-  }
-  
-  func didPressBluesky() {
-    MWMPlacePageManagerHelper.openBluesky(placePageData)
-  }
-  
-  func didPressPanoramax() {
-    MWMPlacePageManagerHelper.openPanoramax(placePageData)
-  }
-  
   func didPressEmail() {
     MWMPlacePageManagerHelper.openEmail(placePageData)
   }
@@ -208,7 +160,6 @@ extension PlacePageInteractor: PlacePageOSMContributionViewControllerDelegate {
   }
 
   func didPressOSMInfo() {
-    presenter?.openURL("https://welcome.openstreetmap.org")
   }
 }
 

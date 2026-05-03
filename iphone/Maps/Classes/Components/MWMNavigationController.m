@@ -2,8 +2,6 @@
 #import "MWMController.h"
 #import "SwiftBridge.h"
 
-#import <SafariServices/SafariServices.h>
-
 @interface MWMNavigationController () <UINavigationControllerDelegate>
 
 @end
@@ -29,12 +27,6 @@
       willShowViewController:(UIViewController *)viewController
                     animated:(BOOL)animated
 {
-  if ([viewController isKindOfClass:[SFSafariViewController class]])
-  {
-    [navigationController setNavigationBarHidden:YES animated:animated];
-    return;
-  }
-  
   if ([viewController conformsToProtocol:@protocol(MWMController)]) {
     id<MWMController> vc = (id<MWMController>)viewController;
     [navigationController setNavigationBarHidden:!vc.hasNavigationBar animated:animated];

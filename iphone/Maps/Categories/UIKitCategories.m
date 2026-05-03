@@ -2,7 +2,6 @@
 #import "UIButton+RuntimeAttributes.h"
 #import "UIImageView+Coloring.h"
 
-#import <SafariServices/SafariServices.h>
 
 @implementation NSObject (Optimized)
 
@@ -81,16 +80,6 @@
 
 @end
 
-@implementation UIApplication (URLs)
-
-- (void)rateApp
-{
-  NSString * urlString = @"https://apps.apple.com/app/comaps/id6747180809?action=write-review";
-  NSURL * url = [NSURL URLWithString:urlString];
-  [self openURL:url options:@{} completionHandler:nil];
-}
-
-@end
 
 @implementation SolidTouchView
 
@@ -154,19 +143,6 @@
 - (NSUInteger)supportedInterfaceOrientations { return UIInterfaceOrientationMaskAll; }
 @end
 
-@interface UIViewController (SafariDelegateImpl)<SFSafariViewControllerDelegate>
-
-@end
-
-@implementation UIViewController (SafariDelegateImpl)
-
-- (void)safariViewControllerDidFinish:(SFSafariViewController *)controller
-{
-  [self.navigationController dismissViewControllerAnimated:YES completion:nil];
-}
-
-@end
-
 @implementation UIViewController (Safari)
 
 - (BOOL)openUrl:(NSString * _Nonnull)urlString
@@ -213,17 +189,13 @@
   if (!urlc.scheme)
     urlc.scheme = @"http";
 
+  // Block all http/https URLs — web browsing is intentionally disabled.
+  if ([urlc.scheme isEqualToString:@"http"] || [urlc.scheme isEqualToString:@"https"])
+    return NO;
+
   NSURL * url = urlc.URL;
-  if (externally && [UIApplication.sharedApplication canOpenURL:url])
-  {
+  if ([UIApplication.sharedApplication canOpenURL:url])
     [UIApplication.sharedApplication openURL:url options:@{} completionHandler:nil];
-  }
-  else
-  {
-    SFSafariViewController * svc = [[SFSafariViewController alloc] initWithURL:url];
-    svc.delegate = self;
-    [self.navigationController presentViewController:svc animated:YES completion:nil];
-  }
   return YES;
 }
 

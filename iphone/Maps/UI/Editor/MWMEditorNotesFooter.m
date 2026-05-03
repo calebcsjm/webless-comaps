@@ -22,7 +22,6 @@
 
 - (IBAction)osmTap
 {
-  [self.controller openUrl:L(@"osm_more_about_url")];
 }
 
 @end

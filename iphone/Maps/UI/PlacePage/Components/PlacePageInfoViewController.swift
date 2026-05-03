@@ -3,18 +3,6 @@ protocol PlacePageInfoViewControllerDelegate: AnyObject {
   var shouldShowOpenInApp: Bool { get }
 
   func didPressCall(to phone: PlacePagePhone)
-  func didPressWebsite()
-  func didPressWebsiteMenu()
-  func didPressWikipedia()
-  func didPressWikimediaCommons()
-  func didPressFediverse()
-  func didPressFacebook()
-  func didPressInstagram()
-  func didPressTwitter()
-  func didPressVk()
-  func didPressLine()
-  func didPressBluesky()
-  func didPressPanoramax()
   func didPressEmail()
   func didPressOpenInApp(from sourceView: UIView)
   func didCopy(_ content: String)
@@ -38,19 +26,7 @@ class PlacePageInfoViewController: UIViewController {
 
   private var rawOpeningHoursView: InfoItemView?
   private var phoneViews: [InfoItemView] = []
-  private var websiteView: InfoItemView?
-  private var websiteMenuView: InfoItemView?
-  private var wikipediaView: InfoItemView?
-  private var wikimediaCommonsView: InfoItemView?
   private var emailView: InfoItemView?
-  private var fediverseView: InfoItemView?
-  private var facebookView: InfoItemView?
-  private var instagramView: InfoItemView?
-  private var twitterView: InfoItemView?
-  private var vkView: InfoItemView?
-  private var lineView: InfoItemView?
-  private var blueskyView: InfoItemView?
-  private var panoramaxView: InfoItemView?
   private var cuisineView: InfoItemView?
   private var operatorView: InfoItemView?
   private var wifiView: InfoItemView?
@@ -134,55 +110,6 @@ class PlacePageInfoViewController: UIViewController {
       populationView = createInfoItem(population, icon: UIImage(systemName: "person.2.fill"))
     }
 
-    if let website = placePageInfoData.website {
-      // Strip website url only when the value is displayed, to avoid issues when it's opened or edited.
-      websiteView = createInfoItem(stripUrl(str: website),
-                                   icon: UIImage(systemName: "globe"),
-                                   style: .link,
-                                   tapHandler: { [weak self] in
-        self?.delegate?.didPressWebsite()
-      },
-                                   longPressHandler: { [weak self] in
-        self?.delegate?.didCopy(website)
-      })
-    }
-
-    if let websiteMenu = placePageInfoData.websiteMenu {
-      websiteView = createInfoItem(L("website_menu"),
-                                   icon: UIImage(systemName: "menucard"),
-                                   style: .link,
-                                   tapHandler: { [weak self] in
-        self?.delegate?.didPressWebsiteMenu()
-      },
-                                   longPressHandler: { [weak self] in
-        self?.delegate?.didCopy(websiteMenu)
-      })
-    }
-
-    if let wikipedia = placePageInfoData.wikipedia {
-      wikipediaView = createInfoItem(L("read_in_wikipedia"),
-                                     icon: UIImage.Brands.wikipedia.resizedBrandForPlacePage(),
-                                     style: .link,
-                                     tapHandler: { [weak self] in
-        self?.delegate?.didPressWikipedia()
-      },
-                                     longPressHandler: { [weak self] in
-        self?.delegate?.didCopy(wikipedia)
-      })
-    }
-
-    if let wikimediaCommons = placePageInfoData.wikimediaCommons {
-      wikimediaCommonsView = createInfoItem(L("wikimedia_commons"),
-                                            icon: UIImage.Brands.wikimediaCommons.resizedBrandForPlacePage(),
-                                            style: .link,
-                                            tapHandler: { [weak self] in
-        self?.delegate?.didPressWikimediaCommons()
-      },
-                                            longPressHandler: { [weak self] in
-        self?.delegate?.didCopy(wikimediaCommons)
-      })
-    }
-
     if let wifi = placePageInfoData.wifiAvailable {
       wifiView = createInfoItem(wifi, icon: UIImage(systemName: "wifi"))
     }
@@ -232,102 +159,6 @@ class PlacePageInfoViewController: UIViewController {
       },
                                  longPressHandler: { [weak self] in
         self?.delegate?.didCopy(email)
-      })
-    }
-
-    if let fediverse = placePageInfoData.fediverse {
-      fediverseView = createInfoItem(fediverse,
-                                     icon: UIImage.Brands.mastodon.resizedBrandForPlacePage(),
-                                    style: .link,
-                                    tapHandler: { [weak self] in
-        self?.delegate?.didPressFediverse()
-      },
-                                    longPressHandler: { [weak self] in
-        self?.delegate?.didCopy(fediverse)
-      })
-    }
-
-    if let facebook = placePageInfoData.facebook {
-      facebookView = createInfoItem(facebook,
-                                    icon: UIImage.Brands.facebook.resizedBrandForPlacePage(),
-                                    style: .link,
-                                    tapHandler: { [weak self] in
-        self?.delegate?.didPressFacebook()
-      },
-                                    longPressHandler: { [weak self] in
-        self?.delegate?.didCopy(facebook)
-      })
-    }
-
-    if let instagram = placePageInfoData.instagram {
-      instagramView = createInfoItem(instagram,
-                                     icon: UIImage.Brands.instagram.resizedBrandForPlacePage(),
-                                     style: .link,
-                                     tapHandler: { [weak self] in
-        self?.delegate?.didPressInstagram()
-      },
-                                     longPressHandler: { [weak self] in
-        self?.delegate?.didCopy(instagram)
-      })
-    }
-
-    if let twitter = placePageInfoData.twitter {
-      twitterView = createInfoItem(twitter,
-                                   icon: UIImage.Brands.X.resizedBrandForPlacePage(),
-                                   style: .link,
-                                   tapHandler: { [weak self] in
-        self?.delegate?.didPressTwitter()
-      },
-                                   longPressHandler: { [weak self] in
-        self?.delegate?.didCopy(twitter)
-      })
-    }
-
-    if let vk = placePageInfoData.vk {
-      vkView = createInfoItem(vk,
-                              icon: UIImage.Brands.VK.resizedBrandForPlacePage(),
-                              style: .link,
-                              tapHandler: { [weak self] in
-        self?.delegate?.didPressVk()
-      },
-                              longPressHandler: { [weak self] in
-        self?.delegate?.didCopy(vk)
-      })
-    }
-
-    if let line = placePageInfoData.line {
-      lineView = createInfoItem(line,
-                                icon: UIImage.Brands.line.resizedBrandForPlacePage(),
-                                style: .link,
-                                tapHandler: { [weak self] in
-        self?.delegate?.didPressLine()
-      },
-                                longPressHandler: { [weak self] in
-        self?.delegate?.didCopy(line)
-      })
-    }
-    
-    if let bluesky = placePageInfoData.bluesky {
-      blueskyView = createInfoItem(bluesky,
-                                icon: UIImage.Brands.bluesky.resizedBrandForPlacePage(),
-                                style: .link,
-                                tapHandler: { [weak self] in
-        self?.delegate?.didPressBluesky()
-      },
-                                longPressHandler: { [weak self] in
-        self?.delegate?.didCopy(bluesky)
-      })
-    }
-	
-    if let panoramax = placePageInfoData.panoramax {
-      panoramaxView = createInfoItem(L("panoramax_picture"),
-                                icon: UIImage.Brands.panoramax.resizedBrandForPlacePage(),
-                                style: .link,
-                                tapHandler: { [weak self] in
-        self?.delegate?.didPressPanoramax()
-      },
-                                longPressHandler: { [weak self] in
-        self?.delegate?.didCopy(panoramax)
       })
     }
 
@@ -451,15 +282,6 @@ class PlacePageInfoViewController: UIViewController {
     stackView.addArrangedSubviewWithSeparator(view, insets: UIEdgeInsets(top: 0, left: 56, bottom: 0, right: 0))
   }
 
-  private static let kHttp = "http://"
-  private static let kHttps = "https://"
-
-  private func stripUrl(str: String) -> String {
-    let dropFromStart = str.hasPrefix(PlacePageInfoViewController.kHttps) ? PlacePageInfoViewController.kHttps.count
-        : (str.hasPrefix(PlacePageInfoViewController.kHttp) ? PlacePageInfoViewController.kHttp.count : 0);
-    let dropFromEnd = str.hasSuffix("/") ? 1 : 0;
-    return String(str.dropFirst(dropFromStart).dropLast(dropFromEnd))
-  }
 }
 
 private extension UIStackView {

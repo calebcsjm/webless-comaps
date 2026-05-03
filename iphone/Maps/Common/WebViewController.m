@@ -156,14 +156,6 @@
     return;
   }
 
-  if (self.openInSafari && navigationAction.navigationType == WKNavigationTypeLinkActivated &&
-      ![url.scheme isEqualToString:@"applewebdata"])  // do not try to open local links in Safari
-  {
-    [UIApplication.sharedApplication openURL:url options:@{} completionHandler:nil];
-    decisionHandler(WKNavigationActionPolicyCancel);
-    return;
-  }
-
   if (!self.shouldResendHeaders) {
     decisionHandler(WKNavigationActionPolicyAllow);
   } else {

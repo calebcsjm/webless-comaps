@@ -14,19 +14,7 @@
 - (void)editPlace;
 - (void)addBusiness;
 - (void)addPlace:(CLLocationCoordinate2D)coordinate;
-- (void)openWebsite:(PlacePageData *)data;
-- (void)openWebsiteMenu:(PlacePageData *)data;
-- (void)openWikipedia:(PlacePageData *)data;
-- (void)openWikimediaCommons:(PlacePageData *)data;
 - (void)openEmail:(PlacePageData *)data;
-- (void)openFediverse:(PlacePageData *)data;
-- (void)openFacebook:(PlacePageData *)data;
-- (void)openInstagram:(PlacePageData *)data;
-- (void)openTwitter:(PlacePageData *)data;
-- (void)openVk:(PlacePageData *)data;
-- (void)openLine:(PlacePageData *)data;
-- (void)openBluesky:(PlacePageData *)data;
-- (void)openPanoramax:(PlacePageData *)data;
 - (void)call:(PlacePagePhone *)phone;
 - (void)showAllFacilities:(PlacePageData *)data;
 - (void)showPlaceDescription:(NSString *)htmlString;
@@ -74,56 +62,8 @@
   [[MWMMapViewControlsManager manager].placePageManager addPlace:coordinate];
 }
 
-+ (void)openWebsite:(PlacePageData *)data {
-  [[MWMMapViewControlsManager manager].placePageManager openWebsite:data];
-}
-
-+ (void)openWebsiteMenu:(PlacePageData *)data {
-  [[MWMMapViewControlsManager manager].placePageManager openWebsiteMenu:data];
-}
-
 + (void)openEmail:(PlacePageData *)data {
   [[MWMMapViewControlsManager manager].placePageManager openEmail:data];
-}
-
-+ (void)openWikipedia:(PlacePageData *)data {
-  [[MWMMapViewControlsManager manager].placePageManager openWikipedia:data];
-}
-
-+ (void)openWikimediaCommons:(PlacePageData *)data {
-  [[MWMMapViewControlsManager manager].placePageManager openWikimediaCommons:data];
-}
-
-+ (void)openFediverse:(PlacePageData *)data {
-  [[MWMMapViewControlsManager manager].placePageManager openFediverse:data];
-}
-
-+ (void)openFacebook:(PlacePageData *)data {
-  [[MWMMapViewControlsManager manager].placePageManager openFacebook:data];
-}
-
-+ (void)openInstagram:(PlacePageData *)data {
-  [[MWMMapViewControlsManager manager].placePageManager openInstagram:data];
-}
-
-+ (void)openTwitter:(PlacePageData *)data {
-  [[MWMMapViewControlsManager manager].placePageManager openTwitter:data];
-}
-
-+ (void)openVk:(PlacePageData *)data {
-  [[MWMMapViewControlsManager manager].placePageManager openVk:data];
-}
-
-+ (void)openLine:(PlacePageData *)data {
-  [[MWMMapViewControlsManager manager].placePageManager openLine:data];
-}
-
-+ (void)openBluesky:(PlacePageData *)data {
-  [[MWMMapViewControlsManager manager].placePageManager openBluesky:data];
-}
-
-+ (void)openPanoramax:(PlacePageData *)data {
-  [[MWMMapViewControlsManager manager].placePageManager openPanoramax:data];
 }
 
 + (void)call:(PlacePagePhone *)phone {

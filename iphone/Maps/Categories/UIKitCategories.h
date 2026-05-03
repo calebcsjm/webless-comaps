@@ -48,12 +48,6 @@ static inline CGFloat LengthCGPoint(CGPoint point)
 
 @end
 
-@interface UIApplication (URLs)
-
-- (void)rateApp;
-
-@end
-
 @interface SolidTouchView : UIView
 
 @end

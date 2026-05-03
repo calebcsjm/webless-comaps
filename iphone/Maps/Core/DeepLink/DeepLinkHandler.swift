@@ -130,25 +130,8 @@
       // Not supported on iOS.
       return false;
     case .oAuth2:
-      var components = url.absoluteString.components(separatedBy: "cm://oauth2/osm/callback?code=")
-      components.removeAll { component in
-        component.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty
-      }
-      if let code = components.first {
-        Task(priority: .userInitiated) {
-          await Profile.saveAuthorizationToken(from: code)
-          DispatchQueue.main.sync {
-            NotificationCenter.default.post(name: SafariView.dismissNotificationName, object: nil)
-          }
-        }
-        return true
-      } else {
-        return false
-      }
+      return false
     case .incorrect:
-      if url.absoluteString.starts(with: "cm://oauth2/osm/callback") {
-        NotificationCenter.default.post(name: SafariView.dismissNotificationName, object: nil)
-      }
       // Invalid URL or API parameters.
       return false;
     @unknown default:

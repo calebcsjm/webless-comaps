@@ -41,17 +41,10 @@ extension EmbeddedSafariViewCoordinator: WKNavigationDelegate {
     
     
     func webView(_ webView: WKWebView, decidePolicyFor navigationAction: WKNavigationAction, decisionHandler: @escaping @MainActor (WKNavigationActionPolicy) -> Void) {
-        if let url = navigationAction.request.url {
-            if url.absoluteString.starts(with: "file:///") {
-                decisionHandler(.allow)
-                return
-            } else if navigationAction.navigationType == .linkActivated {
-                if UIApplication.shared.canOpenURL(url) {
-                    UIApplication.shared.open(url)
-                }
-            }
+        if let url = navigationAction.request.url, url.absoluteString.starts(with: "file:///") {
+            decisionHandler(.allow)
+        } else {
+            decisionHandler(.cancel)
         }
-        
-        decisionHandler(.cancel)
     }
 }

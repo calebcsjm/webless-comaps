@@ -647,9 +647,6 @@ NSString *const kAboutSegue = @"Map2About";
 #pragma mark - Authorization
 
 - (void)checkAuthorization {
-  if (!Platform::IsConnected())
-    return;
-  [self presentViewController:BridgeControllers.profileAsAlert animated:YES completion:nil];
 }
 
 #pragma mark - 3d touch
@@ -848,10 +845,6 @@ NSString *const kAboutSegue = @"Map2About";
 }
 
 - (void)goBack {
-  NSString *backURL = [DeepLinkHandler.shared getBackUrl];
-  if (backURL != nil) {
-    [[UIApplication sharedApplication] openURL:[NSURL URLWithString: backURL] options:@{} completionHandler:nil];
-  }
 }
 
 // MARK: - Track Recording Place Page

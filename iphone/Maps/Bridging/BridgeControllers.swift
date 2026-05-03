@@ -3,13 +3,6 @@ import UIKit
 
 /// Class for accesing SwiftUI views from Objective-C code
 @objc class BridgeControllers: NSObject {
-    /// The `ProfileView` for presentation in an alert
-    @objc static func profileAsAlert() -> UIViewController {
-        let profileBridgeController = UIHostingController(rootView: ProfileView(isPresentedAsAlert: true))
-        profileBridgeController.view.backgroundColor = .systemGroupedBackground
-        return profileBridgeController
-    }
-    
     /// The `RoutingOptionsView` for presentation in an alert
     @objc static func routingOptions() -> UIViewController {
         let routinOptionsBridgeController = UIHostingController(rootView: RoutingOptionsView())
@@ -36,12 +29,3 @@ class SettingsBridgeController: UIHostingController<SettingsView> {
     }
 }
 
-
-
-/// Class for using the SwiftUI `ProfileView` in the interface builder
-class ProfileBridgeController: UIHostingController<ProfileView> {
-    required init?(coder aDecoder: NSCoder) {
-        super.init(coder: aDecoder, rootView: ProfileView())
-        self.view.tintColor = .toolbarAccent
-    }
-}
