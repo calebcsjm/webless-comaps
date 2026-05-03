@@ -1246,9 +1246,6 @@ public class MwmActivity extends BaseMwmFragmentActivity
     mSearchController.detach();
     Utils.keepScreenOn(false, getWindow());
 
-    final String backUrl = Framework.nativeGetParsedBackUrl();
-    if (!TextUtils.isEmpty(backUrl))
-      Utils.openUri(this, Uri.parse(backUrl), null);
 
     if (backupRunner != null && !backupRunner.isAlreadyChecked() && backupRunner.isTimeToBackup())
     {

@@ -103,18 +103,7 @@ public class PlacePageWikipediaFragment extends Fragment implements Observer<Map
       });
     }
 
-    final String wikipediaLink = mMapObject.getMetadata(Metadata.MetadataType.FMD_WIKIPEDIA);
-    if (TextUtils.isEmpty(wikipediaLink))
-      UiUtils.hide(mWiki);
-    else
-    {
-      UiUtils.show(mWiki);
-      mWiki.setOnClickListener((v) -> Utils.openUrl(requireContext(), wikipediaLink));
-      mWiki.setOnLongClickListener((v) -> {
-        PlacePageUtils.copyToClipboard(requireContext(), mFrame, wikipediaLink);
-        return true;
-      });
-    }
+    UiUtils.hide(mWiki);
   }
 
   @Override

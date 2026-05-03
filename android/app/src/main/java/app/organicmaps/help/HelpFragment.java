@@ -3,7 +3,6 @@ package app.organicmaps.help;
 import android.content.res.Configuration;
 import android.os.Bundle;
 import android.text.TextUtils;
-import android.text.util.Linkify;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,7 +16,6 @@ import app.organicmaps.BuildConfig;
 import app.organicmaps.R;
 import app.organicmaps.base.BaseMwmFragment;
 import app.organicmaps.sdk.Framework;
-import app.organicmaps.sdk.util.Constants;
 import app.organicmaps.sdk.util.DateUtils;
 import app.organicmaps.util.Graphics;
 import app.organicmaps.util.SharingUtils;
@@ -52,52 +50,22 @@ public class HelpFragment extends BaseMwmFragment implements View.OnClickListene
     final String dataVersion = DateUtils.getShortDateFormatter().format(Framework.getDataVersion());
     final MaterialTextView osmPresentationView = root.findViewById(R.id.osm_presentation);
     if (osmPresentationView != null)
-    {
       osmPresentationView.setText(getString(R.string.osm_presentation, dataVersion));
-      Linkify.addLinks(osmPresentationView, Linkify.WEB_URLS);
-    }
 
     setupItem(R.id.faq, true, root);
-    setupItem(R.id.news, true, root);
-    setupItem(R.id.web, true, root);
-    setupItem(R.id.code_repo, true, root);
-    setupItem(R.id.mastodon, true, root);
-    setupItem(R.id.matrix, true, root);
-    setupItem(R.id.lemmy, true, root);
-    setupItem(R.id.bluesky, true, root);
-    setupItem(R.id.pixelfed, true, root);
-    setupItem(R.id.openstreetmap, true, root);
     setupItem(R.id.email, true, root);
     setupItem(R.id.report, isLandscape, root);
     setupItem(R.id.copyright, false, root);
 
-    final MaterialTextView supportUsView = root.findViewById(R.id.support_us);
-    if (BuildConfig.FLAVOR.equals("google") && !TextUtils.isEmpty(mDonateUrl))
-      supportUsView.setVisibility(View.GONE);
-    else
-      setupItem(R.id.support_us, true, root);
-
-    final MaterialButton donateView = root.findViewById(R.id.donate);
-    if (TextUtils.isEmpty(mDonateUrl))
-      donateView.setVisibility(View.GONE);
-    else
+    final int[] webOnlyItems = {R.id.news, R.id.web, R.id.code_repo, R.id.mastodon, R.id.matrix,
+        R.id.lemmy, R.id.bluesky, R.id.pixelfed, R.id.openstreetmap, R.id.support_us,
+        R.id.donate, R.id.rate, R.id.term_of_use_link, R.id.privacy_policy};
+    for (int id : webOnlyItems)
     {
-      /*donateView.setCompoundDrawablesRelativeWithIntrinsicBounds(R.drawable.ic_donate, 0,
-                R.drawable.ic_donate, 0);*/
-      setupItem(R.id.donate, isLandscape, root);
+      View item = root.findViewById(id);
+      if (item != null)
+        item.setVisibility(View.GONE);
     }
-
-    if (BuildConfig.REVIEW_URL.isEmpty())
-      root.findViewById(R.id.rate).setVisibility(View.GONE);
-    else
-      setupItem(R.id.rate, true, root);
-
-    View termOfUseView = root.findViewById(R.id.term_of_use_link);
-    View privacyPolicyView = root.findViewById(R.id.privacy_policy);
-    termOfUseView.setOnClickListener(
-        v -> Utils.openUrl(requireActivity(), getResources().getString(R.string.app_site_url) + "terms/"));
-    privacyPolicyView.setOnClickListener(
-        v -> Utils.openUrl(requireActivity(), getResources().getString(R.string.app_site_url) + "privacy/"));
 
     shareLauncher = SharingUtils.RegisterLauncher(this);
 
@@ -110,36 +78,12 @@ public class HelpFragment extends BaseMwmFragment implements View.OnClickListene
   public void onClick(View v)
   {
     final int id = v.getId();
-    if (id == R.id.web)
-      Utils.openUrl(requireActivity(), getResources().getString(R.string.app_site_url));
-    else if (id == R.id.news)
-      Utils.openUrl(requireActivity(), getResources().getString(R.string.app_site_url) + "news/");
-    else if (id == R.id.email)
+    if (id == R.id.email)
       Utils.sendTo(requireContext(), BuildConfig.SUPPORT_MAIL, getString(R.string.project_name));
-    else if (id == R.id.code_repo)
-      Utils.openUrl(requireActivity(), Constants.Url.CODE_REPO);
-    else if (id == R.id.mastodon)
-      Utils.openUrl(requireActivity(), Constants.Url.MASTODON);
-    else if (id == R.id.matrix)
-      Utils.openUrl(requireActivity(), Constants.Url.MATRIX);
-    else if (id == R.id.lemmy)
-      Utils.openUrl(requireActivity(), Constants.Url.LEMMY);
-    else if (id == R.id.bluesky)
-      Utils.openUrl(requireActivity(), Constants.Url.BLUESKY);
-    else if (id == R.id.pixelfed)
-      Utils.openUrl(requireActivity(), Constants.Url.PIXELFED);
-    else if (id == R.id.openstreetmap)
-      Utils.openUrl(requireActivity(), getString(R.string.osm_wiki_about_url));
     else if (id == R.id.faq)
       ((HelpActivity) requireActivity()).stackFragment(FaqFragment.class, getString(R.string.faq), null);
     else if (id == R.id.report)
       Utils.sendBugReport(shareLauncher, requireActivity(), "", "");
-    else if (id == R.id.support_us)
-      Utils.openUrl(requireActivity(), getResources().getString(R.string.app_site_url) + "community/");
-    else if (id == R.id.donate)
-      Utils.openUrl(requireActivity(), mDonateUrl);
-    else if (id == R.id.rate)
-      Utils.openAppInMarket(requireActivity(), BuildConfig.REVIEW_URL);
     else if (id == R.id.copyright)
       ((HelpActivity) requireActivity()).stackFragment(CopyrightFragment.class, getString(R.string.copyright), null);
   }

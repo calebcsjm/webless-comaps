@@ -30,31 +30,20 @@ public class PlacePageLinksFragment extends Fragment implements Observer<MapObje
 
   private View mFrame;
   private View mFacebookPage;
-  private MaterialTextView mTvFacebookPage;
   private View mInstagramPage;
-  private MaterialTextView mTvInstagramPage;
   private View mTwitterPage;
-  private MaterialTextView mTvTwitterPage;
   private View mFediversePage;
-  private MaterialTextView mTvFediversePage;
   private View mBlueskyPage;
-  private MaterialTextView mTvBlueskyPage;
   private View mVkPage;
-  private MaterialTextView mTvVkPage;
   private View mLinePage;
-  private MaterialTextView mTvLinePage;
 
   private View mWebsite;
-  private MaterialTextView mTvWebsite;
   private View mWebsiteMenu;
-  private MaterialTextView mTvWebsiteMenuSubsite;
   private View mEmail;
   private MaterialTextView mTvEmail;
   private View mWikimedia;
-  private MaterialTextView mTvWikimedia;
 
   private View mPanoramax;
-  private MaterialTextView mTvPanoramax;
 
   private PlacePageViewModel mViewModel;
   private MapObject mMapObject;
@@ -105,14 +94,10 @@ public class PlacePageLinksFragment extends Fragment implements Observer<MapObje
     mFrame = view;
 
     mWebsite = mFrame.findViewById(R.id.ll__place_website);
-    mTvWebsite = mFrame.findViewById(R.id.tv__place_website);
-    mWebsite.setOnClickListener((v) -> openUrl(Metadata.MetadataType.FMD_WEBSITE));
-    mWebsite.setOnLongClickListener((v) -> copyUrl(mWebsite, Metadata.MetadataType.FMD_WEBSITE));
+    mWebsite.setVisibility(GONE);
 
     mWebsiteMenu = mFrame.findViewById(R.id.ll__place_website_menu);
-    mTvWebsiteMenuSubsite = mFrame.findViewById(R.id.tv__place_website_menu_subtitle);
-    mWebsiteMenu.setOnClickListener((v) -> openUrl(Metadata.MetadataType.FMD_WEBSITE_MENU));
-    mWebsiteMenu.setOnLongClickListener((v) -> copyUrl(mWebsiteMenu, Metadata.MetadataType.FMD_WEBSITE_MENU));
+    mWebsiteMenu.setVisibility(GONE);
 
     mEmail = mFrame.findViewById(R.id.ll__place_email);
     mTvEmail = mFrame.findViewById(R.id.tv__place_email);
@@ -124,49 +109,31 @@ public class PlacePageLinksFragment extends Fragment implements Observer<MapObje
     mEmail.setOnLongClickListener((v) -> copyUrl(mEmail, Metadata.MetadataType.FMD_EMAIL));
 
     mWikimedia = mFrame.findViewById(R.id.ll__place_wikimedia);
-    mTvWikimedia = mFrame.findViewById(R.id.tv__place_wikimedia);
-    mWikimedia.setOnClickListener((v) -> openUrl(Metadata.MetadataType.FMD_WIKIMEDIA_COMMONS));
-    mWikimedia.setOnLongClickListener((v) -> copyUrl(mWikimedia, Metadata.MetadataType.FMD_WIKIMEDIA_COMMONS));
+    mWikimedia.setVisibility(GONE);
 
     mFacebookPage = mFrame.findViewById(R.id.ll__place_facebook);
-    mTvFacebookPage = mFrame.findViewById(R.id.tv__place_facebook_page);
-    mFacebookPage.setOnClickListener((v) -> openUrl(Metadata.MetadataType.FMD_CONTACT_FACEBOOK));
-    mFacebookPage.setOnLongClickListener((v) -> copyUrl(mFacebookPage, Metadata.MetadataType.FMD_CONTACT_FACEBOOK));
+    mFacebookPage.setVisibility(GONE);
 
     mInstagramPage = mFrame.findViewById(R.id.ll__place_instagram);
-    mTvInstagramPage = mFrame.findViewById(R.id.tv__place_instagram_page);
-    mInstagramPage.setOnClickListener((v) -> openUrl(Metadata.MetadataType.FMD_CONTACT_INSTAGRAM));
-    mInstagramPage.setOnLongClickListener((v) -> copyUrl(mInstagramPage, Metadata.MetadataType.FMD_CONTACT_INSTAGRAM));
+    mInstagramPage.setVisibility(GONE);
 
     mFediversePage = mFrame.findViewById(R.id.ll__place_fediverse);
-    mTvFediversePage = mFrame.findViewById(R.id.tv__place_fediverse_page);
-    mFediversePage.setOnClickListener((v) -> openUrl(Metadata.MetadataType.FMD_CONTACT_FEDIVERSE));
-    mFediversePage.setOnLongClickListener((v) -> copyUrl(mFediversePage, Metadata.MetadataType.FMD_CONTACT_FEDIVERSE));
+    mFediversePage.setVisibility(GONE);
 
     mBlueskyPage = mFrame.findViewById(R.id.ll__place_bluesky);
-    mTvBlueskyPage = mFrame.findViewById(R.id.tv__place_bluesky_page);
-    mBlueskyPage.setOnClickListener((v) -> openUrl(Metadata.MetadataType.FMD_CONTACT_BLUESKY));
-    mBlueskyPage.setOnLongClickListener((v) -> copyUrl(mBlueskyPage, Metadata.MetadataType.FMD_CONTACT_BLUESKY));
+    mBlueskyPage.setVisibility(GONE);
 
     mTwitterPage = mFrame.findViewById(R.id.ll__place_twitter);
-    mTvTwitterPage = mFrame.findViewById(R.id.tv__place_twitter_page);
-    mTwitterPage.setOnClickListener((v) -> openUrl(Metadata.MetadataType.FMD_CONTACT_TWITTER));
-    mTwitterPage.setOnLongClickListener((v) -> copyUrl(mTwitterPage, Metadata.MetadataType.FMD_CONTACT_TWITTER));
+    mTwitterPage.setVisibility(GONE);
 
     mVkPage = mFrame.findViewById(R.id.ll__place_vk);
-    mTvVkPage = mFrame.findViewById(R.id.tv__place_vk_page);
-    mVkPage.setOnClickListener((v) -> openUrl(Metadata.MetadataType.FMD_CONTACT_VK));
-    mVkPage.setOnLongClickListener((v) -> copyUrl(mVkPage, Metadata.MetadataType.FMD_CONTACT_VK));
+    mVkPage.setVisibility(GONE);
 
     mLinePage = mFrame.findViewById(R.id.ll__place_line);
-    mTvLinePage = mFrame.findViewById(R.id.tv__place_line_page);
-    mLinePage.setOnClickListener((v) -> openUrl(Metadata.MetadataType.FMD_CONTACT_LINE));
-    mLinePage.setOnLongClickListener((v) -> copyUrl(mLinePage, Metadata.MetadataType.FMD_CONTACT_LINE));
+    mLinePage.setVisibility(GONE);
 
     mPanoramax = mFrame.findViewById(R.id.ll__place_panoramax);
-    mTvPanoramax = mFrame.findViewById(R.id.tv__place_panoramax);
-    mPanoramax.setOnClickListener((v) -> openUrl(Metadata.MetadataType.FMD_PANORAMAX));
-    mPanoramax.setOnLongClickListener((v) -> copyUrl(mPanoramax, Metadata.MetadataType.FMD_PANORAMAX));
+    mPanoramax.setVisibility(GONE);
   }
 
   private void openUrl(Metadata.MetadataType type)
@@ -204,41 +171,7 @@ public class PlacePageLinksFragment extends Fragment implements Observer<MapObje
 
   private void refreshLinks()
   {
-    refreshMetadataOrHide(mMapObject.getWebsiteUrl(true /* strip */, Metadata.MetadataType.FMD_WEBSITE), mWebsite,
-                          mTvWebsite);
-    refreshMetadataOrHide(mMapObject.getWebsiteUrl(true /* strip */, Metadata.MetadataType.FMD_WEBSITE_MENU),
-                          mWebsiteMenu, mTvWebsiteMenuSubsite);
-
-    String wikimedia_commons = mMapObject.getMetadata(Metadata.MetadataType.FMD_WIKIMEDIA_COMMONS);
-    String wikimedia_commons_text =
-        TextUtils.isEmpty(wikimedia_commons) ? "" : getResources().getString(R.string.wikimedia_commons);
-    refreshMetadataOrHide(wikimedia_commons_text, mWikimedia, mTvWikimedia);
     refreshMetadataOrHide(mMapObject.getMetadata(Metadata.MetadataType.FMD_EMAIL), mEmail, mTvEmail);
-
-    final String facebook = mMapObject.getMetadata(Metadata.MetadataType.FMD_CONTACT_FACEBOOK);
-    refreshMetadataOrHide(facebook, mFacebookPage, mTvFacebookPage);
-
-    final String instagram = mMapObject.getMetadata(Metadata.MetadataType.FMD_CONTACT_INSTAGRAM);
-    refreshMetadataOrHide(instagram, mInstagramPage, mTvInstagramPage);
-
-    final String fediverse = mMapObject.getMetadata(Metadata.MetadataType.FMD_CONTACT_FEDIVERSE);
-    refreshMetadataOrHide(fediverse, mFediversePage, mTvFediversePage);
-
-    final String bluesky = mMapObject.getMetadata(Metadata.MetadataType.FMD_CONTACT_BLUESKY);
-    refreshMetadataOrHide(bluesky, mBlueskyPage, mTvBlueskyPage);
-
-    final String twitter = mMapObject.getMetadata(Metadata.MetadataType.FMD_CONTACT_TWITTER);
-    refreshMetadataOrHide(twitter, mTwitterPage, mTvTwitterPage);
-
-    final String vk = mMapObject.getMetadata(Metadata.MetadataType.FMD_CONTACT_VK);
-    refreshMetadataOrHide(vk, mVkPage, mTvVkPage);
-
-    final String line = mMapObject.getMetadata(Metadata.MetadataType.FMD_CONTACT_LINE);
-    refreshMetadataOrHide(line, mLinePage, mTvLinePage);
-
-    final String panoramax = mMapObject.getMetadata(Metadata.MetadataType.FMD_PANORAMAX);
-    final String panoramaxTitle = TextUtils.isEmpty(panoramax) ? "" : getResources().getString(R.string.panoramax);
-    refreshMetadataOrHide(panoramaxTitle, mPanoramax, mTvPanoramax);
   }
 
   @Override

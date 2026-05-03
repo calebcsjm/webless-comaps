@@ -77,12 +77,9 @@ public class ProfileFragment extends BaseMwmToolbarFragment
     mEditsSent = mUserInfoBlock.findViewById(R.id.user_sent_edits);
     mProfileName = mUserInfoBlock.findViewById(R.id.user_profile_name);
     mProfileImage = mUserInfoBlock.findViewById(R.id.user_profile_image);
-    view.findViewById(R.id.about_osm)
-        .setOnClickListener((v) -> Utils.openUrl(requireActivity(), getString(R.string.osm_wiki_about_url)));
-    view.findViewById(R.id.osm_history)
-        .setOnClickListener((v) -> Utils.openUrl(requireActivity(), OsmOAuth.getHistoryUrl()));
-    view.findViewById(R.id.osm_notes)
-        .setOnClickListener((v) -> Utils.openUrl(requireActivity(), OsmOAuth.getNotesUrl()));
+    view.findViewById(R.id.about_osm).setVisibility(View.GONE);
+    view.findViewById(R.id.osm_history).setVisibility(View.GONE);
+    view.findViewById(R.id.osm_notes).setVisibility(View.GONE);
 
     View buttonsContainer = view.findViewById(R.id.buttons_container);
     ViewCompat.setOnApplyWindowInsetsListener(

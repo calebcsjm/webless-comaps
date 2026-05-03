@@ -186,13 +186,7 @@ public class Utils
 
   public static void openUrl(@NonNull Context context, @Nullable String url)
   {
-    if (TextUtils.isEmpty(url))
-      return;
-
-    Uri uri =
-        isHttpOrHttpsScheme(url) ? Uri.parse(url) : new Uri.Builder().scheme("http").appendEncodedPath(url).build();
-
-    Utils.openUri(context, uri, R.string.browser_not_available);
+    // Web browsing is intentionally disabled.
   }
 
   /**
@@ -203,10 +197,14 @@ public class Utils
    */
   public static void openUri(@NonNull Context context, @NonNull Uri uri, @Nullable Integer failMessage)
   {
+    // Block http/https — web browsing is intentionally disabled.
+    final String scheme = uri.getScheme();
+    if ("http".equalsIgnoreCase(scheme) || "https".equalsIgnoreCase(scheme))
+      return;
+
     final Intent intent = new Intent(Intent.ACTION_VIEW);
     intent.setData(uri);
     intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-    intent.addCategory(Intent.CATEGORY_BROWSABLE);
 
     try
     {

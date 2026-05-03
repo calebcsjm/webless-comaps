@@ -42,8 +42,7 @@ public abstract class WebContainerDelegate implements OnBackPressListener
           v.reload();
           return true;
         }
-
-        doStartActivity(new Intent(Intent.ACTION_VIEW).setData(Uri.parse(url)));
+        // Block all external web navigation.
         return true;
       }
     });

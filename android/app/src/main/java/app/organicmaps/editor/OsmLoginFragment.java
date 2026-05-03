@@ -39,8 +39,8 @@ public class OsmLoginFragment extends BaseMwmToolbarFragment
     getToolbarController().setTitle(R.string.login);
     mLoginButton = view.findViewById(R.id.login);
     MaterialButton registerButton = view.findViewById(R.id.register);
-    registerButton.setOnClickListener((v) -> Utils.openUrl(requireActivity(), Constants.Url.OSM_REGISTER));
-    mLoginButton.setOnClickListener((v) -> loginWithBrowser());
+    registerButton.setVisibility(View.GONE);
+    mLoginButton.setVisibility(View.GONE);
 
     String code = readOAuth2CodeFromArguments();
     if (code != null && !code.isEmpty())
