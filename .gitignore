@@ -1,3 +1,4 @@
+.venv/
 # Please use android/.gitignore for all Android stuff
 
 syntax: glob
